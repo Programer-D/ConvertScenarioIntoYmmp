@@ -1,12 +1,17 @@
 import json
 import os
 import traceback
+import configparser
 
 path = './Ymmp/'
 
 
 def do():
     try:
+        config = configparser.ConfigParser()
+        config.read('./setting.ini', encoding='utf-8')
+        lingering = int(config['Serif']['YOIN'])
+        interval = int(config['Serif']['INTERVAL'])
         for file in os.listdir(path):
             with open(path + file, 'r', encoding='utf-8') as f:
                 ymmp = json.loads(f.read())
@@ -22,9 +27,9 @@ def do():
                     'PlaybackRate'] * 100
                 frames = int(seconds / (1 / 30))
 
-                item['Length'] = frames + 6
+                item['Length'] = frames + lingering
                 item['Frame'] = current_frame
-                current_frame += frames + 6 + 6
+                current_frame += frames + lingering + interval
 
             with open('./CompleteYmmp/' + file, 'w', encoding='utf-8') as f:
                 data = json.dumps(ymmp, ensure_ascii=False)
