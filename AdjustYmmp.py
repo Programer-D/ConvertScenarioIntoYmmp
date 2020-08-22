@@ -1,7 +1,7 @@
+import configparser
 import json
 import os
 import traceback
-import configparser
 
 path = './Ymmp/'
 
@@ -20,9 +20,12 @@ def do():
 
             current_frame = 0
             for item in ymmp['Timeline']['Items']:
-                if item['VoiceLength'] == '00:00:00':
+                voice_length = item['VoiceLength']
+                if voice_length == '00:00:00':
                     continue
-                dt = time.fromisoformat(item['VoiceLength'][:-1])
+                if len(item['VoiceLength']) == 8:
+                    voice_length += '.0000000'
+                dt = time.fromisoformat(voice_length[:-1])
                 seconds = (dt.hour * 3600 + dt.minute * 60 + dt.second + (dt.microsecond / 1000000)) / item[
                     'PlaybackRate'] * 100
                 frames = int(seconds / (1 / 30))

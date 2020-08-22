@@ -49,7 +49,7 @@ def make_voice_item(serif, frame, exist_character_list):
         playback_rate = character['PlaybackRate']
         voice_base['PlaybackRate'] = playback_rate
         voice_base['VoiceParameter'] = character['VoiceParameter']
-        speed = character['VoiceParameter']['Speed']
+
     voice_base['Serif'] = serif['text']
     voice_base['Hatsuon'] = serif['pronunciation']
     voice_base['Frame'] = frame
