@@ -23,7 +23,7 @@ def do():
 
         serif_list = []
         character_list = []
-        new_text += '$' + new_text
+        new_text = '$' + new_text
         for text in re.findall('\$(.*?『.*?』)', new_text):
             # background = re.search()
             character = re.search('(.*?)『', text).group().replace('『', '').replace('$', '')
